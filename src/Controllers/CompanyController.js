@@ -17,7 +17,7 @@ module.exports = {
             name, cnpj, adress, cep, cidade, estado, pais
         }).then(result => res.json({
             status: 'OK',
-            msg: 'Registro criado'
+            msg: 'Registro criado com sucesso'
         })
         ).catch((err) => {
             res.send(err);
