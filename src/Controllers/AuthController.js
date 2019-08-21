@@ -19,7 +19,10 @@ module.exports = {
 
         const token = await jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 86400 });
 
-        res.send({ user, token });
+        res.send({ auth: true, token });
 
+    },
+    async logout(req, res) {
+        res.status(200).send({ auth: false, token: null })
     }
 }

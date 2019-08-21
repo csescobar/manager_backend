@@ -12,7 +12,10 @@ routes.post('/user', verifyJWT, UserController.store);
 routes.put('/user', verifyJWT, UserController.put);
 routes.delete('/user', verifyJWT, UserController.remove);
 routes.post('/company', verifyJWT, CompanyController.store);
+routes.put('/company', verifyJWT, CompanyController.put);
+routes.delete('/company', verifyJWT, CompanyController.remove);
 routes.post('/usercompany', verifyJWT, UserCompanyController.store);
+routes.post('/logout', verifyJWT, AuthControllet.logout);
 routes.post('/authenticate', AuthControllet.auth);
 
 function verifyJWT(req, res, next) {
