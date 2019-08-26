@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { updateRelation, removeRelation } = require('../Controllers/UserController');
+const { updateRelation } = require('../Controllers/UserController');
 
 
 const UserCompanySchema = new Schema({
@@ -25,12 +25,5 @@ UserCompanySchema.post('save', async function (UserCompanySchema) {
     await updateRelation(UserCompanySchema);
 
 });
-
-UserCompanySchema.post('deleteOne', { document: false, query: true }, async function () {
-
-    console.log(UserCompanySchema)//(this.user + '-' + this.company);
-    //   await removeRelation(this.user, this.company);
-
-})
 
 module.exports = model('UserCompany', UserCompanySchema);

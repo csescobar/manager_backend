@@ -1,4 +1,5 @@
 const UserCompany = require('../models/UserCompany');
+const { removeRelation } = require('../Controllers/UserController');
 
 module.exports = {
     async store(req, res) {
@@ -18,9 +19,12 @@ module.exports = {
     },
     async remove(req, res) {
         const { usercompany } = req.headers;
-        console.log(usercompany);
+        //console.log(usercompany);
+        const uC = await UserCompany.findById(usercompany);
+        console.log(uC)
         UserCompany.deleteOne({ _id: usercompany }
         ).then(result => {
+            removeRelation(uC.user, uC.company);
             res.json({
                 status: 'OK',
                 msg: 'Relacionamento deletado'
