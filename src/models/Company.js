@@ -8,6 +8,10 @@ const CompanySchema = new Schema({
     cidade: String,
     estado: String,
     pais: String,
+    user: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
         timestamps: true
     })

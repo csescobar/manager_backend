@@ -1,11 +1,13 @@
 const { Schema, model } = require('mongoose');
+const { updateRelation, removeRelation } = require('../Controllers/UserController');
+
 
 const UserCompanySchema = new Schema({
-    idUser: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    idCompany: {
+    company: {
         type: Schema.Types.ObjectId,
         ref: 'Company',
     },
@@ -16,6 +18,19 @@ const UserCompanySchema = new Schema({
 }, {
         timestamps: true
     })
-UserCompanySchema.index({ idUser: 1, idCompany: 1 }, { unique: true });
+//UserCompanySchema.index({ idUser: 1, idCompany: 1 }, { unique: true });
+
+UserCompanySchema.post('save', async function (UserCompanySchema) {
+    console.log(UserCompanySchema);
+    await updateRelation(UserCompanySchema);
+
+});
+
+UserCompanySchema.post('deleteOne', { document: false, query: true }, async function () {
+
+    console.log(UserCompanySchema)//(this.user + '-' + this.company);
+    //   await removeRelation(this.user, this.company);
+
+})
 
 module.exports = model('UserCompany', UserCompanySchema);

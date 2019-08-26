@@ -20,7 +20,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         select: false,
-    }
+    },
+    company: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Company'
+    }]
 }, {
         timestamps: true
     })

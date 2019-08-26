@@ -15,6 +15,7 @@ routes.post('/company', verifyJWT, CompanyController.store);
 routes.put('/company', verifyJWT, CompanyController.put);
 routes.delete('/company', verifyJWT, CompanyController.remove);
 routes.post('/usercompany', verifyJWT, UserCompanyController.store);
+routes.delete('/usercompany', verifyJWT, UserCompanyController.remove);
 routes.post('/logout', verifyJWT, AuthControllet.logout);
 routes.post('/authenticate', AuthControllet.auth);
 
