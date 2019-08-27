@@ -32,7 +32,14 @@ function verifyJWT(req, res, next) {
                 auth: false,
                 message: 'Failed to authenticate'
             })
-        req.userId = decoded.id;
+        console.log(decoded.id);
+        console.log(req.headers.userid);
+
+        if (req.headers.userid !== decoded.id)
+            return res.status(500).send({
+                auth: false,
+                message: 'Failed to authenticate'
+            })
         next();
 
     })
