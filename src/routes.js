@@ -8,7 +8,7 @@ const AuthController = require('./Controllers/AuthController');
 
 const routes = express.Router();
 
-routes.post('/user', verifyJWT, UserController.store);
+routes.post('/user', UserController.store);
 routes.put('/user', verifyJWT, UserController.put);
 routes.delete('/user', verifyJWT, UserController.remove);
 routes.post('/company', verifyJWT, CompanyController.store);
