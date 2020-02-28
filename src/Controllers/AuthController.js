@@ -17,7 +17,7 @@ module.exports = {
 
         user.password = undefined;
 
-        const token = await jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 86400 });
+        const token = await jwt.sign({ id: user.id }, process.env.SECRET || 'nodejs', { expiresIn: 86400 });
 
         res.send({ auth: true, token });
 

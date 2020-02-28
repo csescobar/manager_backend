@@ -27,7 +27,7 @@ function verifyJWT(req, res, next) {
             message: 'No token provided',
             token: null
         })
-    jwt.verify(token, process.env.SECRET, function (err, decoded) {
+    jwt.verify(token, process.env.SECRET || 'nodejs', function (err, decoded) {
         if (err)
             return res.status(500).send({
                 auth: false,
