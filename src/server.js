@@ -9,8 +9,9 @@ const server = express();
 
 mongoose.set('useCreateIndex', true);
 
-mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-vlxex.mongodb.net/chmanager?retryWrites=true&w=majority', {
-    useNewUrlParser: true
+mongoose.connect(process.env.URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
 
 

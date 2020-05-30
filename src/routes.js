@@ -1,11 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 const UserController = require('./Controllers/UserController');
 const CompanyController = require('./Controllers/CompanyController');
 const UserCompanyController = require('./Controllers/UserCompanyController');
 const AuthController = require('./Controllers/AuthController');
 
+dotenv.config();
 const routes = express.Router();
 
 routes.post('/user', UserController.store);
@@ -16,7 +18,6 @@ routes.put('/company', verifyJWT, CompanyController.put);
 routes.delete('/company', verifyJWT, CompanyController.remove);
 routes.post('/usercompany', verifyJWT, UserCompanyController.store);
 routes.delete('/usercompany', verifyJWT, UserCompanyController.remove);
-routes.post('/logout', verifyJWT, AuthController.logout);
 routes.post('/authenticate', AuthController.auth);
 
 function verifyJWT(req, res, next) {
@@ -27,22 +28,16 @@ function verifyJWT(req, res, next) {
             message: 'No token provided',
             token: null
         })
-    jwt.verify(token, process.env.SECRET || 'nodejs', function (err, decoded) {
+    jwt.verify(token, process.env.SECRET, function (err, decoded) {
         if (err)
-            return res.status(500).send({
+            return res.status(401).send({
                 auth: false,
                 message: 'Failed to authenticate',
                 token: null
             })
         console.log(decoded.id);
-        console.log(req.headers.userid);
+        req.headers.user = decoded.id;
 
-        if (req.headers.userid !== decoded.id)
-            return res.status(500).send({
-                auth: false,
-                message: 'Failed to authenticate',
-                token: null
-            })
         next();
 
     })

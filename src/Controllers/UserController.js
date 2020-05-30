@@ -3,7 +3,7 @@ const Company = require('../models/Company');
 
 module.exports = {
     async store(req, res) {
-        const { firstname, lastname, email, password } = req.body;
+        const { firstname, lastname, password, email } = req.body;
 
         User.create({
             firstname,
@@ -19,11 +19,11 @@ module.exports = {
         })
     },
     async put(req, res) {
-        const { firstname, lastname, email } = req.body;
+        const { firstname, lastname } = req.body;
         const { user } = req.headers;
 
         User.findById(user).then((model) => {
-            return Object.assign(model, { firstname, lastname, email });
+            return Object.assign(model, { firstname, lastname });
         }).then((model) => {
             return model.save();
         }).then((updateModel) => {
