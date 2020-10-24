@@ -17,9 +17,7 @@ module.exports = {
             return res.status(401).send({ error: 'User or password not found' });
         
         const hash = await bcrypt.hash(email, 10);
-        console.log(hash);
-        console.log(user.password);
-        
+                
         
         if (!await bcrypt.compare(email + password, user.password))
             return res.status(401).send({ error: 'User or password not found' });
