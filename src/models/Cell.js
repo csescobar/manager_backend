@@ -6,7 +6,11 @@ const CellSchema = new Schema(
       type: String,
       required: true,
     },
-    rede: {
+    address: {
+      type: String,
+      required: true,
+    },
+    net: {
       type: Number,
       required: true,
     },

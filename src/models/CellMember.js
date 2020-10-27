@@ -13,20 +13,19 @@ const CellMemberSchema = new Schema(
     email: {
       type: String,
     },
-    function: {
-      type: String,
-      default: 'Membro'
+    funcao: {
+      type: Number,
+      required: true,
     },
     birth_date: {
       type: Date,
       required: true,
     },
-    cell: [
+    cell: 
       {
         type: Schema.Types.ObjectId,
         ref: "Cell",
       },
-    ],
   },
   {
     timestamps: true,

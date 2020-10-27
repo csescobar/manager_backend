@@ -7,6 +7,7 @@ const CompanyController = require("./Controllers/CompanyController");
 const UserCompanyController = require("./Controllers/UserCompanyController");
 const AuthController = require("./Controllers/AuthController");
 const CellController = require("./Controllers/CellController");
+const CellMember = require("./Controllers/CellMemberController");
 
 dotenv.config();
 const routes = express.Router();
@@ -22,6 +23,8 @@ routes.delete("/usercompany", verifyJWT, UserCompanyController.remove);
 routes.post("/authenticate", AuthController.auth);
 routes.post('/cell', CellController.store);
 routes.get('/cell', CellController.index);
+routes.post('/cellmember', CellMember.create);
+routes.get('/cellmember', CellMember.index);
 
 function verifyJWT(req, res, next) {
   var token = req.headers["x-access-token"];

@@ -1,13 +1,16 @@
 const Cell = require('../models/Cell');
 const ConvertHourToMinutes = require('../utils/convertHourToMinutes');
 const ConvertMinutesToHour = require('../utils/convertMinutesToHour');
+const diasdaSemana = require('../utils/enumDiasDaSemana');
+const redes = require('../utils/enumRedes');
 
 module.exports = {
   async store(req, res) {
     
     const {
       name,
-      rede,
+      address,
+      net,
       day_of_week,
       company,
       from,
@@ -20,7 +23,8 @@ module.exports = {
     try {
       await Cell.create({
         name,
-        rede,
+        address,
+        net,
         day_of_week,
         company,
         from: fromConverted,
@@ -35,16 +39,21 @@ module.exports = {
   },
 
   async index(req, res) {
-    const cellsFound = await Cell.find();
+    const cellsFound = await Cell.find().populate('company', 'name') ;
     const cells = cellsFound.map((cellsFoundItem) => {
       const fromConverted = ConvertMinutesToHour(cellsFoundItem.from);
       const toConverted = ConvertMinutesToHour(cellsFoundItem.to);
+      
+      const nomeDiaSemana = diasdaSemana[cellsFoundItem.day_of_week];
+      const rede = redes[cellsFoundItem.net]
 
       return {
+        id: cellsFoundItem._id,
         name: cellsFoundItem.name,
-        rede: cellsFoundItem.rede,
-        day_of_week: cellsFoundItem.day_of_week,
-        company: cellsFoundItem.company,
+        address: cellsFoundItem.address,
+        net: rede,
+        company: cellsFoundItem.company.name,
+        day_of_week: nomeDiaSemana,
         from: fromConverted,
         to: toConverted
       }
